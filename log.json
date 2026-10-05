@@ -1,0 +1,805 @@
+{
+ "schema": 1,
+ "entries": [
+  {
+   "time": "2026-10-05T15:14:19.432Z",
+   "evals": 0,
+   "msg": "search started",
+   "best": null,
+   "bestId": null,
+   "formulaId": null,
+   "mix": null,
+   "kept": 0
+  },
+  {
+   "time": "2026-10-05T15:14:19.445Z",
+   "evals": 1,
+   "msg": "new best",
+   "best": 26.45,
+   "bestId": "F000001",
+   "formulaId": "F000001",
+   "mix": "acetone 37%, fabri 10%, ipa 15%, meoac 24%, neo 5%, pvac 9%",
+   "kept": 1
+  },
+  {
+   "time": "2026-10-05T15:14:19.446Z",
+   "evals": 6,
+   "msg": "new best",
+   "best": 28,
+   "bestId": "F000006",
+   "formulaId": "F000006",
+   "mix": "acetone 72%, egda 4%, pib 9%, pmma 12%, silica 3%",
+   "kept": 6
+  },
+  {
+   "time": "2026-10-05T15:14:19.446Z",
+   "evals": 7,
+   "msg": "new best",
+   "best": 39.48,
+   "bestId": "F000007",
+   "formulaId": "F000007",
+   "mix": "etoac 22%, fabri 4%, mek 29%, meoac 24%, neo 9%, pmma 7%, silica 5%",
+   "kept": 7
+  },
+  {
+   "time": "2026-10-05T15:14:19.447Z",
+   "evals": 16,
+   "msg": "new best",
+   "best": 48.96,
+   "bestId": "F000016",
+   "formulaId": "F000016",
+   "mix": "acetone 52%, mek 23%, nbr 23%, silica 2%",
+   "kept": 16
+  },
+  {
+   "time": "2026-10-05T15:14:19.447Z",
+   "evals": 24,
+   "msg": "new best",
+   "best": 70.14,
+   "bestId": "F000024",
+   "formulaId": "F000024",
+   "mix": "acetone 48%, egda 3%, fabri 9%, meoac 12%, nbr 28%",
+   "kept": 24
+  },
+  {
+   "time": "2026-10-05T15:14:19.479Z",
+   "evals": 499,
+   "msg": "checkpoint",
+   "best": 70.14,
+   "bestId": "F000024",
+   "formulaId": null,
+   "mix": null,
+   "kept": 499
+  },
+  {
+   "time": "2026-10-05T15:14:19.492Z",
+   "evals": 502,
+   "msg": "new best",
+   "best": 71.17,
+   "bestId": "F000502",
+   "formulaId": "F000502",
+   "mix": "acetone 32%, fabri 7%, meoac 16%, pmma 21%, pvac 24%",
+   "kept": 502
+  },
+  {
+   "time": "2026-10-05T15:14:19.495Z",
+   "evals": 520,
+   "msg": "new best",
+   "best": 71.98,
+   "bestId": "F000519",
+   "formulaId": "F000519",
+   "mix": "acetone 45%, egda 3%, fabri 9%, meoac 12%, nbr 31%",
+   "kept": 519
+  },
+  {
+   "time": "2026-10-05T15:14:19.502Z",
+   "evals": 629,
+   "msg": "new best",
+   "best": 72.03,
+   "bestId": "F000623",
+   "formulaId": "F000623",
+   "mix": "acetone 46%, egda 3%, fabri 9%, meoac 12%, nbr 27%, silica 3%",
+   "kept": 623
+  },
+  {
+   "time": "2026-10-05T15:14:19.506Z",
+   "evals": 673,
+   "msg": "new best",
+   "best": 72.16,
+   "bestId": "F000666",
+   "formulaId": "F000666",
+   "mix": "acetone 48%, egda 3%, fabri 9%, meoac 4%, nbr 36%",
+   "kept": 666
+  },
+  {
+   "time": "2026-10-05T15:14:19.509Z",
+   "evals": 756,
+   "msg": "new best",
+   "best": 73.01,
+   "bestId": "F000745",
+   "formulaId": "F000745",
+   "mix": "acetone 48%, egda 3%, fabri 9%, meoac 8%, nbr 32%",
+   "kept": 745
+  },
+  {
+   "time": "2026-10-05T15:14:19.517Z",
+   "evals": 895,
+   "msg": "new best",
+   "best": 74.51,
+   "bestId": "F000878",
+   "formulaId": "F000878",
+   "mix": "acetone 44%, egda 3%, fabri 8%, meoac 11%, nbr 26%, pmma 8%",
+   "kept": 878
+  },
+  {
+   "time": "2026-10-05T15:14:19.519Z",
+   "evals": 930,
+   "msg": "new best",
+   "best": 75.49,
+   "bestId": "F000911",
+   "formulaId": "F000911",
+   "mix": "acetone 50%, egda 10%, fabri 10%, nbr 30%",
+   "kept": 911
+  },
+  {
+   "time": "2026-10-05T15:14:19.529Z",
+   "evals": 1036,
+   "msg": "new best",
+   "best": 76.73,
+   "bestId": "F001015",
+   "formulaId": "F001015",
+   "mix": "acetone 44%, egda 8%, fabri 8%, meoac 6%, nbr 26%, pmma 8%",
+   "kept": 1015
+  },
+  {
+   "time": "2026-10-05T15:14:19.551Z",
+   "evals": 1360,
+   "msg": "new best",
+   "best": 76.99,
+   "bestId": "F001322",
+   "formulaId": "F001322",
+   "mix": "acetone 44%, egda 8%, fabri 10%, meoac 4%, nbr 26%, pmma 8%",
+   "kept": 1322
+  },
+  {
+   "time": "2026-10-05T15:14:19.553Z",
+   "evals": 1425,
+   "msg": "new best",
+   "best": 77.14,
+   "bestId": "F001382",
+   "formulaId": "F001382",
+   "mix": "acetone 44%, egda 9%, fabri 8%, meoac 5%, nbr 26%, pmma 8%",
+   "kept": 1382
+  },
+  {
+   "time": "2026-10-05T15:14:19.559Z",
+   "evals": 1445,
+   "msg": "new best",
+   "best": 77.19,
+   "bestId": "F001400",
+   "formulaId": "F001400",
+   "mix": "acetone 48%, egda 9%, meoac 1%, nbr 33%, ps 9%",
+   "kept": 1400
+  },
+  {
+   "time": "2026-10-05T15:14:19.559Z",
+   "evals": 1449,
+   "msg": "new best",
+   "best": 77.26,
+   "bestId": "F001404",
+   "formulaId": "F001404",
+   "mix": "acetone 41%, egda 10%, fabri 8%, meoac 7%, nbr 26%, pmma 8%",
+   "kept": 1404
+  },
+  {
+   "time": "2026-10-05T15:14:19.582Z",
+   "evals": 1771,
+   "msg": "new best",
+   "best": 77.34,
+   "bestId": "F001702",
+   "formulaId": "F001702",
+   "mix": "acetone 48%, egda 8%, fabri 8%, nbr 27%, pmma 9%",
+   "kept": 1702
+  },
+  {
+   "time": "2026-10-05T15:14:19.582Z",
+   "evals": 1787,
+   "msg": "new best",
+   "best": 77.89,
+   "bestId": "F001714",
+   "formulaId": "F001714",
+   "mix": "acetone 48%, egda 10%, fabri 8%, nbr 26%, pmma 8%",
+   "kept": 1714
+  },
+  {
+   "time": "2026-10-05T15:14:19.594Z",
+   "evals": 2200,
+   "msg": "new best",
+   "best": 77.96,
+   "bestId": "F002081",
+   "formulaId": "F002081",
+   "mix": "acetone 45%, egda 10%, fabri 8%, nbr 26%, pmma 11%",
+   "kept": 2081
+  },
+  {
+   "time": "2026-10-05T15:14:19.595Z",
+   "evals": 2246,
+   "msg": "new best",
+   "best": 78.12,
+   "bestId": "F002117",
+   "formulaId": "F002117",
+   "mix": "acetone 46%, egda 10%, fabri 3%, nbr 27%, pmma 14%",
+   "kept": 2117
+  },
+  {
+   "time": "2026-10-05T15:14:19.613Z",
+   "evals": 2760,
+   "msg": "new best",
+   "best": 78.14,
+   "bestId": "F002567",
+   "formulaId": "F002567",
+   "mix": "acetone 46%, egda 10%, nbr 27%, pmma 14%, pvac 3%",
+   "kept": 2567
+  },
+  {
+   "time": "2026-10-05T15:14:19.614Z",
+   "evals": 2762,
+   "msg": "new best",
+   "best": 78.15,
+   "bestId": "F002569",
+   "formulaId": "F002569",
+   "mix": "acetone 46%, egda 10%, fabri 6%, nbr 26%, pmma 12%",
+   "kept": 2569
+  },
+  {
+   "time": "2026-10-05T15:14:19.614Z",
+   "evals": 2807,
+   "msg": "new best",
+   "best": 78.16,
+   "bestId": "F002606",
+   "formulaId": "F002606",
+   "mix": "acetone 46%, egda 10%, fabri 5%, nbr 25%, pmma 14%",
+   "kept": 2606
+  },
+  {
+   "time": "2026-10-05T15:14:19.616Z",
+   "evals": 2901,
+   "msg": "new best",
+   "best": 78.21,
+   "bestId": "F002687",
+   "formulaId": "F002687",
+   "mix": "acetone 47%, egda 10%, fabri 8%, nbr 25%, neo 2%, pmma 8%",
+   "kept": 2687
+  },
+  {
+   "time": "2026-10-05T15:14:19.622Z",
+   "evals": 3037,
+   "msg": "new best",
+   "best": 78.23,
+   "bestId": "F002808",
+   "formulaId": "F002808",
+   "mix": "acetone 47%, egda 10%, fabri 2%, nbr 25%, neo 2%, pmma 14%",
+   "kept": 2808
+  },
+  {
+   "time": "2026-10-05T15:14:19.622Z",
+   "evals": 3059,
+   "msg": "new best",
+   "best": 78.31,
+   "bestId": "F002823",
+   "formulaId": "F002823",
+   "mix": "acetone 45%, egda 10%, fabri 14%, nbr 18%, pmma 13%",
+   "kept": 2823
+  },
+  {
+   "time": "2026-10-05T15:14:19.632Z",
+   "evals": 3460,
+   "msg": "new best",
+   "best": 78.38,
+   "bestId": "F003157",
+   "formulaId": "F003157",
+   "mix": "acetone 46%, egda 10%, fabri 3%, nbr 25%, neo 2%, pmma 14%",
+   "kept": 3157
+  },
+  {
+   "time": "2026-10-05T15:14:19.641Z",
+   "evals": 3711,
+   "msg": "new best",
+   "best": 78.44,
+   "bestId": "F003363",
+   "formulaId": "F003363",
+   "mix": "acetone 46%, egda 10%, fabri 8%, nbr 21%, neo 2%, pmma 12%, pvac 1%",
+   "kept": 3363
+  },
+  {
+   "time": "2026-10-05T15:14:19.646Z",
+   "evals": 3830,
+   "msg": "new best",
+   "best": 78.6,
+   "bestId": "F003472",
+   "formulaId": "F003472",
+   "mix": "acetone 44%, egda 10%, fabri 16%, nbr 16%, pmma 11%, sbs 3%",
+   "kept": 3472
+  },
+  {
+   "time": "2026-10-05T15:14:19.653Z",
+   "evals": 3861,
+   "msg": "new best",
+   "best": 78.77,
+   "bestId": "F003496",
+   "formulaId": "F003496",
+   "mix": "acetone 44%, egda 10%, fabri 22%, nbr 10%, pmma 11%, sbs 3%",
+   "kept": 3496
+  },
+  {
+   "time": "2026-10-05T15:14:19.654Z",
+   "evals": 3948,
+   "msg": "new best",
+   "best": 78.83,
+   "bestId": "F003568",
+   "formulaId": "F003568",
+   "mix": "acetone 44%, egda 10%, fabri 16%, nbr 16%, pib 3%, pmma 11%",
+   "kept": 3568
+  },
+  {
+   "time": "2026-10-05T15:14:19.658Z",
+   "evals": 4029,
+   "msg": "new best",
+   "best": 78.84,
+   "bestId": "F003637",
+   "formulaId": "F003637",
+   "mix": "acetone 43%, egda 10%, fabri 16%, nbr 16%, pib 2%, pmma 13%",
+   "kept": 3637
+  },
+  {
+   "time": "2026-10-05T15:14:19.668Z",
+   "evals": 4330,
+   "msg": "new best",
+   "best": 78.87,
+   "bestId": "F003886",
+   "formulaId": "F003886",
+   "mix": "acetone 42%, egda 10%, fabri 15%, nbr 15%, pib 2%, pmma 13%, ps 3%",
+   "kept": 3886
+  },
+  {
+   "time": "2026-10-05T15:14:19.674Z",
+   "evals": 4378,
+   "msg": "new best",
+   "best": 79.05,
+   "bestId": "F003928",
+   "formulaId": "F003928",
+   "mix": "acetone 43%, egda 10%, fabri 16%, nbr 15%, pib 3%, pmma 13%",
+   "kept": 3928
+  },
+  {
+   "time": "2026-10-05T15:14:19.690Z",
+   "evals": 4707,
+   "msg": "new best",
+   "best": 79.2,
+   "bestId": "F004207",
+   "formulaId": "F004207",
+   "mix": "acetone 43%, egda 10%, fabri 21%, nbr 10%, pib 3%, pmma 13%",
+   "kept": 4207
+  },
+  {
+   "time": "2026-10-05T15:14:19.692Z",
+   "evals": 4864,
+   "msg": "new best",
+   "best": 79.21,
+   "bestId": "F004333",
+   "formulaId": "F004333",
+   "mix": "acetone 43%, egda 10%, fabri 16%, nbr 12%, pib 3%, pmma 16%",
+   "kept": 4333
+  },
+  {
+   "time": "2026-10-05T15:14:19.700Z",
+   "evals": 5096,
+   "msg": "checkpoint",
+   "best": 79.21,
+   "bestId": "F004333",
+   "formulaId": null,
+   "mix": null,
+   "kept": 4521
+  },
+  {
+   "time": "2026-10-05T15:14:19.730Z",
+   "evals": 5107,
+   "msg": "new best",
+   "best": 79.23,
+   "bestId": "F004532",
+   "formulaId": "F004532",
+   "mix": "acetone 43%, egda 10%, fabri 18%, nbr 12%, pib 3%, pmma 14%",
+   "kept": 4532
+  },
+  {
+   "time": "2026-10-05T15:14:19.735Z",
+   "evals": 5236,
+   "msg": "new best",
+   "best": 79.26,
+   "bestId": "F004639",
+   "formulaId": "F004639",
+   "mix": "acetone 41%, egda 10%, fabri 20%, nbr 10%, pib 3%, pmma 16%",
+   "kept": 4639
+  },
+  {
+   "time": "2026-10-05T15:14:19.744Z",
+   "evals": 5494,
+   "msg": "checkpoint",
+   "best": 79.26,
+   "bestId": "F004639",
+   "formulaId": null,
+   "mix": null,
+   "kept": 4853
+  },
+  {
+   "time": "2026-10-05T15:14:19.798Z",
+   "evals": 5515,
+   "msg": "new best",
+   "best": 79.4,
+   "bestId": "F004870",
+   "formulaId": "F004870",
+   "mix": "acetone 41%, egda 10%, fabri 24%, nbr 6%, pib 3%, pmma 16%",
+   "kept": 4870
+  },
+  {
+   "time": "2026-10-05T15:14:19.799Z",
+   "evals": 5564,
+   "msg": "new best",
+   "best": 79.45,
+   "bestId": "F004908",
+   "formulaId": "F004908",
+   "mix": "acetone 41%, egda 10%, fabri 20%, pib 3%, pmma 16%, pvac 10%",
+   "kept": 4908
+  },
+  {
+   "time": "2026-10-05T15:14:19.810Z",
+   "evals": 5807,
+   "msg": "new best",
+   "best": 79.47,
+   "bestId": "F005096",
+   "formulaId": "F005096",
+   "mix": "acetone 41%, egda 10%, fabri 28%, nbr 2%, pib 3%, pmma 16%",
+   "kept": 5096
+  },
+  {
+   "time": "2026-10-05T15:14:19.818Z",
+   "evals": 5933,
+   "msg": "new best",
+   "best": 79.54,
+   "bestId": "F005197",
+   "formulaId": "F005197",
+   "mix": "acetone 40%, egda 10%, fabri 28%, pib 3%, pmma 19%",
+   "kept": 4017
+  },
+  {
+   "time": "2026-10-05T15:14:19.826Z",
+   "evals": 6086,
+   "msg": "new best",
+   "best": 79.57,
+   "bestId": "F005328",
+   "formulaId": "F005328",
+   "mix": "acetone 40%, egda 10%, fabri 28%, nbr 2%, neo 1%, pib 3%, pmma 16%",
+   "kept": 4148
+  },
+  {
+   "time": "2026-10-05T15:14:19.836Z",
+   "evals": 6255,
+   "msg": "new best",
+   "best": 79.67,
+   "bestId": "F005454",
+   "formulaId": "F005454",
+   "mix": "acetone 41%, egda 10%, fabri 28%, neo 2%, pib 3%, pmma 16%",
+   "kept": 4274
+  },
+  {
+   "time": "2026-10-05T15:14:19.852Z",
+   "evals": 6385,
+   "msg": "new best",
+   "best": 79.68,
+   "bestId": "F005550",
+   "formulaId": "F005550",
+   "mix": "acetone 40%, egda 10%, fabri 27%, nbr 2%, neo 2%, pib 3%, pmma 16%",
+   "kept": 4370
+  },
+  {
+   "time": "2026-10-05T15:14:19.859Z",
+   "evals": 6505,
+   "msg": "new best",
+   "best": 79.78,
+   "bestId": "F005643",
+   "formulaId": "F005643",
+   "mix": "acetone 40%, egda 10%, fabri 27%, nbr 2%, neo 1%, pib 4%, pmma 16%",
+   "kept": 4463
+  },
+  {
+   "time": "2026-10-05T15:14:19.864Z",
+   "evals": 6674,
+   "msg": "new best",
+   "best": 79.79,
+   "bestId": "F005771",
+   "formulaId": "F005771",
+   "mix": "acetone 40%, egda 10%, fabri 29%, pib 5%, pmma 16%",
+   "kept": 4591
+  },
+  {
+   "time": "2026-10-05T15:14:19.868Z",
+   "evals": 6842,
+   "msg": "new best",
+   "best": 79.8,
+   "bestId": "F005890",
+   "formulaId": "F005890",
+   "mix": "acetone 40%, egda 10%, fabri 30%, pib 5%, pmma 15%",
+   "kept": 4710
+  },
+  {
+   "time": "2026-10-05T15:14:19.868Z",
+   "evals": 6912,
+   "msg": "new best",
+   "best": 79.9,
+   "bestId": "F005935",
+   "formulaId": "F005935",
+   "mix": "acetone 40%, egda 10%, fabri 27%, neo 1%, pib 4%, pmma 16%, pvac 2%",
+   "kept": 4755
+  },
+  {
+   "time": "2026-10-05T15:14:19.887Z",
+   "evals": 7535,
+   "msg": "new best",
+   "best": 79.91,
+   "bestId": "F006398",
+   "formulaId": "F006398",
+   "mix": "acetone 40%, egda 10%, fabri 22%, neo 1%, pib 4%, pmma 16%, pvac 7%",
+   "kept": 5218
+  },
+  {
+   "time": "2026-10-05T15:14:19.893Z",
+   "evals": 7587,
+   "msg": "new best",
+   "best": 79.97,
+   "bestId": "F006438",
+   "formulaId": "F006438",
+   "mix": "acetone 40%, egda 10%, neo 5%, pib 3%, pmma 15%, pvac 27%",
+   "kept": 4034
+  },
+  {
+   "time": "2026-10-05T15:14:19.894Z",
+   "evals": 7718,
+   "msg": "new best",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": "F006540",
+   "mix": "acetone 40%, egda 10%, fabri 22%, pib 5%, pmma 16%, pvac 7%",
+   "kept": 4136
+  },
+  {
+   "time": "2026-10-05T15:14:19.978Z",
+   "evals": 10060,
+   "msg": "checkpoint",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": null,
+   "mix": null,
+   "kept": 4768
+  },
+  {
+   "time": "2026-10-05T15:14:20.018Z",
+   "evals": 10352,
+   "msg": "checkpoint",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": null,
+   "mix": null,
+   "kept": 4990
+  },
+  {
+   "time": "2026-10-05T15:14:20.229Z",
+   "evals": 15113,
+   "msg": "checkpoint",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": null,
+   "mix": null,
+   "kept": 4497
+  },
+  {
+   "time": "2026-10-05T15:14:20.268Z",
+   "evals": 15311,
+   "msg": "checkpoint",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": null,
+   "mix": null,
+   "kept": 4673
+  },
+  {
+   "time": "2026-10-05T15:14:20.289Z",
+   "evals": 15491,
+   "msg": "checkpoint",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": null,
+   "mix": null,
+   "kept": 4832
+  },
+  {
+   "time": "2026-10-05T15:14:20.516Z",
+   "evals": 20034,
+   "msg": "checkpoint",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": null,
+   "mix": null,
+   "kept": 4449
+  },
+  {
+   "time": "2026-10-05T15:14:20.534Z",
+   "evals": 20195,
+   "msg": "checkpoint",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": null,
+   "mix": null,
+   "kept": 4591
+  },
+  {
+   "time": "2026-10-05T15:14:20.560Z",
+   "evals": 20366,
+   "msg": "checkpoint",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": null,
+   "mix": null,
+   "kept": 4753
+  },
+  {
+   "time": "2026-10-05T15:14:20.710Z",
+   "evals": 25005,
+   "msg": "checkpoint",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": null,
+   "mix": null,
+   "kept": 4717
+  },
+  {
+   "time": "2026-10-05T15:14:20.728Z",
+   "evals": 25153,
+   "msg": "checkpoint",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": null,
+   "mix": null,
+   "kept": 4855
+  },
+  {
+   "time": "2026-10-05T15:14:20.746Z",
+   "evals": 25304,
+   "msg": "checkpoint",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": null,
+   "mix": null,
+   "kept": 4997
+  },
+  {
+   "time": "2026-10-05T15:14:20.764Z",
+   "evals": 25423,
+   "msg": "checkpoint",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": null,
+   "mix": null,
+   "kept": 5111
+  },
+  {
+   "time": "2026-10-05T15:14:20.904Z",
+   "evals": 30021,
+   "msg": "checkpoint",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": null,
+   "mix": null,
+   "kept": 5066
+  },
+  {
+   "time": "2026-10-05T15:14:20.942Z",
+   "evals": 30151,
+   "msg": "checkpoint",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": null,
+   "mix": null,
+   "kept": 4122
+  },
+  {
+   "time": "2026-10-05T15:14:20.964Z",
+   "evals": 30283,
+   "msg": "checkpoint",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": null,
+   "mix": null,
+   "kept": 4252
+  },
+  {
+   "time": "2026-10-05T15:14:20.985Z",
+   "evals": 30421,
+   "msg": "checkpoint",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": null,
+   "mix": null,
+   "kept": 4386
+  },
+  {
+   "time": "2026-10-05T15:14:21.157Z",
+   "evals": 35065,
+   "msg": "checkpoint",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": null,
+   "mix": null,
+   "kept": 4620
+  },
+  {
+   "time": "2026-10-05T15:14:21.181Z",
+   "evals": 35194,
+   "msg": "checkpoint",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": null,
+   "mix": null,
+   "kept": 4744
+  },
+  {
+   "time": "2026-10-05T15:14:21.208Z",
+   "evals": 35337,
+   "msg": "checkpoint",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": null,
+   "mix": null,
+   "kept": 4881
+  },
+  {
+   "time": "2026-10-05T15:14:21.239Z",
+   "evals": 35468,
+   "msg": "checkpoint",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": null,
+   "mix": null,
+   "kept": 5008
+  },
+  {
+   "time": "2026-10-05T15:14:21.375Z",
+   "evals": 37820,
+   "msg": "converged: no gain for 30000 blends",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": "F006540",
+   "mix": "acetone 40%, egda 10%, fabri 22%, pib 5%, pmma 16%, pvac 7%",
+   "kept": 4118
+  },
+  {
+   "time": "2026-10-05T15:14:21.555Z",
+   "evals": 37820,
+   "msg": "search started",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": null,
+   "mix": null,
+   "kept": 1500
+  },
+  {
+   "time": "2026-10-05T15:14:21.727Z",
+   "evals": 39855,
+   "msg": "converged: no gain for 2000 blends",
+   "best": 80.02,
+   "bestId": "F006540",
+   "formulaId": "F006540",
+   "mix": "acetone 40%, egda 10%, fabri 22%, pib 5%, pmma 16%, pvac 7%",
+   "kept": 2973
+  }
+ ]
+}

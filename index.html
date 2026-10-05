@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Web Fluid Formula Search</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef2f0;--panel:#fafcfb;--ink:#1b2a2f;--mute:#5d6f74;--line:#cdd9d6;--acc:#1f6f78;--hot:#b4472c;--ok:#2f7d4f}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#11181b;--panel:#182226;--ink:#e3ece9;--mute:#8fa3a8;--line:#2b3b40;--acc:#5fc0c9;--hot:#f08a6b;--ok:#6fcf97}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Instrument Sans",system-ui,sans-serif;font-variant-numeric:tabular-nums}
+header{padding:28px 24px 8px;max-width:1200px;margin:auto}
+h1{font-size:28px;margin:0 0 4px;letter-spacing:-.02em}
+header p{margin:0;color:var(--mute);max-width:70ch}
+main{max-width:1200px;margin:auto;padding:16px 24px 48px;display:grid;gap:16px;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}
+@media(max-width:900px){main{grid-template-columns:1fr}}
+section{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px;min-width:0}
+h2{font-size:16px;margin:0 0 10px}
+.full{grid-column:1/-1}
+.stats{display:flex;flex-wrap:wrap;gap:20px;margin-bottom:12px}
+.stats div b{display:block;font-size:22px;letter-spacing:-.01em}
+.stats div span{color:var(--mute);font-size:13px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+button,.btn{font:inherit;background:var(--acc);color:#fff;border:0;border-radius:4px;padding:8px 14px;cursor:pointer;font-weight:500}
+@media (prefers-color-scheme:dark){button,.btn{color:#08181b}}
+button.sec{background:transparent;color:var(--ink);border:1px solid var(--line)}
+button:focus-visible,input:focus-visible,tr:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+label{font-size:13px;color:var(--mute);display:flex;gap:6px;align-items:center}
+input[type=number]{width:90px;font:inherit;padding:5px 6px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--mute);font-weight:500}
+tr.r{cursor:pointer}tr.r:hover,tr.sel{background:color-mix(in srgb,var(--acc) 12%,transparent)}
+.bar{height:6px;border-radius:3px;background:var(--line);min-width:60px}.bar i{display:block;height:100%;border-radius:3px;background:var(--acc)}
+.mix{font-size:13px;color:var(--mute)}
+#viewer{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}
+.mol{border:1px solid var(--line);border-radius:4px;padding:8px;background:var(--bg);text-align:center;font-size:12px}
+.mol svg{max-width:180px;height:auto;display:block;margin:auto}
+.mol b{display:block;font-size:13px}
+.plus{align-self:center;font-size:20px;color:var(--mute)}
+.fl{margin-top:8px;font-size:12px;color:var(--hot)}
+#log{max-height:240px;overflow:auto;font-size:12.5px;color:var(--mute)}
+#log div{padding:2px 0;border-bottom:1px dashed var(--line)}
+.warn{font-size:13px;color:var(--mute);border-left:3px solid var(--hot);padding-left:10px;margin-top:10px}
+</style>
+</head>
+<body>
+<header>
+<h1>Web fluid formula search</h1>
+<p>Generates and scores thousands of solvent / adhesive-polymer blends, hunting for one that dries in flight and still holds weight. Results are saved as three JSON files you commit to your repo.</p>
+</header>
+<main>
+<section class="full">
+<div class="stats">
+<div><b id="sEval">0</b><span>blends scored</span></div>
+<div><b id="sUniq">0</b><span>unique kept</span></div>
+<div><b id="sBest">–</b><span>best score (0–100)</span></div>
+<div><b id="sBase">–</b><span>2:1 acetone : Fabri-Tac</span></div>
+<div><b id="sState">idle</b><span>status</span></div>
+</div>
+<div class="row">
+<button id="go">Start search</button>
+<button class="sec" id="reset">Reset</button>
+<label>Stop after <input type="number" id="pat" value="30000" min="1000" step="1000"> blends with no gain</label>
+<label>Target hold (g) <input type="number" id="tgt" value="200" min="10" step="10"></label>
+</div>
+<div class="row" style="margin-top:10px">
+<button class="sec" id="d1">Download formulas.json</button>
+<button class="sec" id="d2">Download log.json</button>
+<button class="sec" id="d3">Download skeletons.json</button>
+<label>Load files <input type="file" id="ld" accept=".json" multiple></label>
+</div>
+<div class="warn">Scores come from a simplified estimation model, not lab data. Treat the winner as a candidate to test on a bench. Acetone and the other solvents here are flammable and irritating: mix outdoors, away from flame, and never spray toward people, pets, eyes, or finished surfaces.</div>
+</section>
+
+<section>
+<h2>Leaderboard</h2>
+<div class="tw"><table id="tb"></table></div>
+</section>
+
+<section>
+<h2>Skeletal structures <span class="mix" id="vt"></span></h2>
+<div id="viewer"></div>
+<div class="fl" id="vf"></div>
+</section>
+
+<section class="full">
+<h2>Search log</h2>
+<div id="log"></div>
+</section>
+</main>
+
+<script>
+// ---------- Component library (properties are approximate estimates) ----------
+// evap = relative evaporation rate (n-butyl acetate = 1); visc in cP; haz 0-1 penalty
+const S={
+acetone:{n:"Acetone",f:"C3H6O",ev:14.4,v:.31,haz:.15,sk:"C:-.87:.5,C:0:0,C:.87:.5,O:0:-1|0-1,1-2,1=3"},
+mek:{n:"Methyl ethyl ketone",f:"C4H8O",ev:6.3,v:.40,haz:.35,sk:"C:0:0,C:.87:.5,C:1.73:0,C:2.6:.5,O:.87:1.5|0-1,1-2,2-3,1=4"},
+etoac:{n:"Ethyl acetate",f:"C4H8O2",ev:6.2,v:.42,haz:.15,sk:"C:0:0,C:.87:.5,O:1.73:0,C:2.6:.5,C:3.46:0,O:.87:1.5|0-1,1-2,2-3,3-4,1=5"},
+meoac:{n:"Methyl acetate",f:"C3H6O2",ev:11,v:.36,haz:.15,sk:"C:0:0,C:.87:.5,O:1.73:0,C:2.6:.5,O:.87:1.5|0-1,1-2,2-3,1=4"},
+tol:{n:"Toluene",f:"C7H8",ev:2,v:.56,haz:.6,sk:"C:0:1,C:-.87:.5,C:-.87:-.5,C:0:-1,C:.87:-.5,C:.87:.5,C:0:2|0=1,1-2,2=3,3-4,4=5,5-0,0-6"},
+hept:{n:"n-Heptane",f:"C7H16",ev:4,v:.39,haz:.35,sk:"C:0:0,C:.87:.5,C:1.73:0,C:2.6:.5,C:3.46:0,C:4.33:.5,C:5.2:0|0-1,1-2,2-3,3-4,4-5,5-6"},
+ipa:{n:"Isopropanol",f:"C3H8O",ev:1.7,v:2.4,haz:.1,sk:"C:0:0,C:.87:.5,C:1.73:0,O:.87:1.5|0-1,1-2,1-3"},
+etoh:{n:"Ethanol",f:"C2H6O",ev:1.6,v:1.1,haz:.05,sk:"C:0:0,C:.87:.5,O:1.73:0|0-1,1-2"},
+chex:{n:"Cyclohexanone",f:"C6H10O",ev:.3,v:2,haz:.2,sk:"C:0:1,C:-.87:.5,C:-.87:-.5,C:0:-1,C:.87:-.5,C:.87:.5,O:0:2|0-1,1-2,2-3,3-4,4-5,5-0,0=6"}};
+const P={
+fabri:{n:"Fabri-Tac (composition unpublished)",f:"proprietary",str:6,coh:.8,k:14,fl:.7,haz:.2,c:{acetone:.9,mek:.9,etoac:.85,meoac:.85,tol:.6,hept:.2,ipa:.2,etoh:.2,chex:.7},sk:null},
+neo:{n:"Polychloroprene (neoprene)",f:"(C4H5Cl)n",str:10,coh:.9,k:17,fl:.9,haz:.1,c:{acetone:.4,mek:.85,etoac:.6,meoac:.5,tol:.9,hept:.5,ipa:0,etoh:0,chex:.6},sk:"C:0:0,C:.87:.5,C:1.73:0,C:2.6:.5,Cl:.87:1.5|0-1,1=2,2-3,1-4"},
+pvac:{n:"Polyvinyl acetate",f:"(C4H6O2)n",str:6,coh:.6,k:13,fl:.5,haz:0,c:{acetone:.95,mek:.9,etoac:.9,meoac:.9,tol:.7,hept:0,ipa:.3,etoh:.4,chex:.8},sk:"C:0:0,C:.87:.5,C:1.73:0,O:.87:1.5,C:1.73:2,O:1.73:3,C:2.6:1.5|0-1,1-2,1-3,3-4,4=5,4-6"},
+nbr:{n:"Nitrile rubber (NBR)",f:"(C4H6·C3H3N)n",str:12,coh:.8,k:17,fl:.9,haz:.15,c:{acetone:.8,mek:.95,etoac:.6,meoac:.6,tol:.6,hept:.1,ipa:0,etoh:0,chex:.7},sk:"C:0:0,C:.87:.5,C:1.73:0,C:2.6:.5,C:3.46:0,C:4.33:.5,C:.87:1.5,N:.87:2.5|0-1,1-2,2-3,3=4,4-5,1-6,6#7"},
+sbs:{n:"SBS rubber (butadiene block shown)",f:"(C4H6)n(C8H8)m",str:15,coh:.7,k:16,fl:.95,haz:.1,c:{acetone:0,mek:.3,etoac:.3,meoac:.1,tol:.95,hept:.6,ipa:0,etoh:0,chex:.5},sk:"C:0:0,C:.87:.5,C:1.73:0,C:2.6:.5|0-1,1=2,2-3"},
+ps:{n:"Polystyrene",f:"(C8H8)n",str:40,coh:.2,k:11,fl:.1,haz:.1,c:{acetone:.8,mek:.9,etoac:.85,meoac:.7,tol:.95,hept:0,ipa:0,etoh:0,chex:.8},sk:"C:0:0,C:.87:.5,C:1.73:0,C:.87:1.5,C:1.73:2,C:1.73:3,C:.87:3.5,C:0:3,C:0:2|0-1,1-2,1-3,3=4,4-5,5=6,6-7,7=8,8-3"},
+pmma:{n:"PMMA (acrylic)",f:"(C5H8O2)n",str:50,coh:.25,k:12,fl:.1,haz:.1,c:{acetone:.85,mek:.85,etoac:.8,meoac:.7,tol:.8,hept:0,ipa:0,etoh:0,chex:.8},sk:"C:0:0,C:.87:.5,C:1.73:0,C:0:1,C:1.73:1,O:1.73:2,O:2.6:.5,C:3.46:1|0-1,1-2,1-3,1-4,4=5,4-6,6-7"},
+pib:{n:"Polyisobutylene (tacky)",f:"(C4H8)n",str:1.5,coh:1,k:14,fl:1,haz:.05,c:{acetone:0,mek:.2,etoac:.3,meoac:.1,tol:.9,hept:.95,ipa:0,etoh:0,chex:.5},sk:"C:0:0,C:.87:.5,C:1.73:0,C:0:1,C:1.73:1|0-1,1-2,1-3,1-4"}};
+const A={
+egda:{n:"Ethylene glycol diacetate (plasticizer)",f:"C6H10O4",sk:"C:0:0,C:.87:.5,O:.87:1.5,O:1.73:0,C:2.6:.5,C:3.46:0,O:4.33:.5,C:5.2:0,O:5.2:-1,C:6.06:.5|0-1,1=2,1-3,3-4,4-5,5-6,6-7,7=8,7-9"},
+silica:{n:"Fumed silica (thickener)",f:"SiO2",sk:"O:0:0,Si:1:0,O:2:0|0=1,1=2"}};
+const TYPE={};Object.keys(S).forEach(k=>TYPE[k]="s");Object.keys(P).forEach(k=>TYPE[k]="p");Object.keys(A).forEach(k=>TYPE[k]="a");
+const LIB=Object.assign({},S,P,A);
+const ids=t=>Object.keys(TYPE).filter(k=>TYPE[k]===t);
+function parseSk(s){if(!s)return null;const[a,b]=s.split("|");return{atoms:a.split(",").map(x=>{const q=x.split(":");return[q[0],+q[1],+q[2]]}),bonds:b.split(",").map(x=>{const m=x.match(/(\d+)([-=#])(\d+)/);return[+m[1],+m[3],m[2]=="-"?1:m[2]=="="?2:3]})}}
+
+// ---------- Scoring model ----------
+let target=200;
+function evaluate(c){
+ let Ws=0,Wp=0,Wa=0;
+ for(const x of c){const w=x.wt/100,t=TYPE[x.id];if(t=="s")Ws+=w;else if(t=="p")Wp+=w;else Wa+=w}
+ if(Ws<.4||Ws>.95||Wp<.04||Wa>.1)return null;
+ let lnv=0,E=0,hz=0,slow=0;
+ for(const x of c)if(TYPE[x.id]=="s"){const w=x.wt/100/Ws,s=S[x.id];lnv+=w*Math.log(s.v);E+=w/s.ev;hz+=w*s.haz;if(s.ev<1)slow+=w}
+ E=1/E;
+ let kw=0,comp=0,str=0,coh=0,fl=0,ph=0;
+ for(const x of c)if(TYPE[x.id]=="p"){const p=P[x.id],w=x.wt/100;let cc=0;
+  for(const y of c)if(TYPE[y.id]=="s")cc+=y.wt/100/Ws*p.c[y.id];
+  kw+=p.k*w*(.5+.5*cc);comp+=w/Wp*cc;str+=w/Wp*p.str;coh+=w/Wp*p.coh;fl+=w/Wp*p.fl;ph+=w/Wp*p.haz}
+ const si=(c.find(x=>x.id=="silica")||{wt:0}).wt/100,pl=(c.find(x=>x.id=="egda")||{wt:0}).wt/100;
+ const eta=Math.exp(lnv+kw+18*si),le=Math.log10(eta);
+ const sol=Math.min(1,Math.max(0,(comp-.35)/.45));
+ const flow=Math.exp(-Math.pow((le-2)/.7,2));
+ const t=1.2*(Ws/.667)*(14.4/E)*(1+3*slow);
+ const dry=1/(1+t*t);
+ fl=Math.min(1,fl+2*pl);
+ const flexS=Math.min(1,fl/.6);
+ const sigma=str*(.5+.5*fl)*(1-2.5*pl)*(.4+.6*sol);
+ const solids=Wp+Wa;
+ const hold=Math.max(0,sigma*.785*solids/.0098);
+ const holdS=1-Math.exp(-hold/target);
+ const tack=Math.min(1,coh*Math.min(1,Wp/.2)+1.5*si);
+ const haz=1-.4*(hz*.6+ph*.4);
+ const fs=[[dry,.3],[flow,.2],[holdS,.3],[tack,.15],[sol,.25],[flexS,.1]];
+ let ls=0,tw=0;for(const[v,w]of fs){ls+=w*Math.log(Math.max(v,1e-3));tw+=w}
+ const score=100*Math.exp(ls/tw)*haz;
+ return{score:+score.toFixed(2),visc:Math.round(eta),dryS:+t.toFixed(2),holdG:Math.round(hold),tack:+tack.toFixed(2),sol:+sol.toFixed(2),flex:+fl.toFixed(2),haz:+(1-haz).toFixed(2)}
+}
+
+// ---------- Search ----------
+const R=Math.random,pick=a=>a[Math.floor(R()*a.length)];
+function norm(c){c=c.filter(x=>x.wt>0);let s=c.reduce((a,x)=>a+x.wt,0);c.forEach(x=>x.wt=Math.max(1,Math.round(x.wt*100/s)));
+ s=c.reduce((a,x)=>a+x.wt,0);const big=c.reduce((a,x)=>x.wt>a.wt?x:a,c[0]);big.wt+=100-s;return c.sort((a,b)=>a.id<b.id?-1:1)}
+function randomF(){
+ const sh=ids("s").sort(()=>R()-.5).slice(0,1+Math.floor(R()*3)),ph=ids("p").sort(()=>R()-.5).slice(0,1+Math.floor(R()*3)),ah=ids("a").filter(()=>R()<.3);
+ const ws=55+R()*35,wp=100-ws-ah.length*3,c=[];
+ const sp=sh.map(()=>R()+.1),pp=ph.map(()=>R()+.1),ss=sp.reduce((a,b)=>a+b),ps=pp.reduce((a,b)=>a+b);
+ sh.forEach((id,i)=>c.push({id,wt:ws*sp[i]/ss}));ph.forEach((id,i)=>c.push({id,wt:wp*pp[i]/ps}));ah.forEach(id=>c.push({id,wt:1+R()*4}));
+ return norm(c)}
+function mutate(b){
+ let c=b.map(x=>({id:x.id,wt:x.wt}));const op=R();
+ if(op<.55&&c.length>1){const a=pick(c),d=pick(c);if(a!==d){const m=1+Math.floor(R()*8);a.wt+=m;d.wt-=m;if(d.wt<1)d.wt=0}}
+ else if(op<.75){const x=pick(c),t=TYPE[x.id],o=ids(t).filter(i=>!c.some(y=>y.id==i));if(o.length)x.id=pick(o)}
+ else if(op<.9){const t=pick(["s","p","a"]),o=ids(t).filter(i=>!c.some(y=>y.id==i));if(o.length)c.push({id:pick(o),wt:1+R()*10})}
+ else{const x=pick(c);if(c.filter(y=>TYPE[y.id]==TYPE[x.id]).length>1||TYPE[x.id]=="a")x.wt=0}
+ return norm(c)}
+const key=c=>c.map(x=>x.id+":"+x.wt).join("|");
+
+let F=[],seen=new Set(),LOG=[],evals=0,lastGain=0,best=null,run=false,counter=0,sel=null,baseF=null;
+const $=id=>document.getElementById(id);
+function add(c,gen){
+ const k=key(c);if(seen.has(k))return;seen.add(k);
+ const m=evaluate(c);evals++;if(!m)return;
+ const f={id:"F"+String(++counter).padStart(6,"0"),gen,comps:c,m};F.push(f);
+ if(!best||m.score>best.m.score+.005){best=f;lastGain=evals;logE("new best",f)}
+}
+function logE(msg,f){LOG.push({time:new Date().toISOString(),evals,msg,best:best?best.m.score:null,bestId:best?best.id:null,formulaId:f?f.id:null,mix:f?f.comps.map(x=>x.id+" "+x.wt+"%").join(", "):null,kept:F.length});
+ if(LOG.length>3000)LOG.splice(1,500);addLog(LOG[LOG.length-1])}
+function tick(){
+ if(!run)return;
+ F.sort((a,b)=>b.m.score-a.m.score);if(F.length>5000)F.length=4000;
+ const el=F.slice(0,40);
+ for(let i=0;i<200;i++){
+  const g=el.length>=20&&R()<.75;
+  add(g?mutate(pick(el.slice(0,Math.min(el.length,1+Math.floor(R()*R()*40)))).comps):randomF(),g?"mutate":"random")}
+ if(evals%2000<200)logE("checkpoint");
+ ui();
+ if(evals-lastGain>=+$("pat").value){run=false;$("go").textContent="Resume search";$("sState").textContent="converged";logE("converged: no gain for "+(evals-lastGain)+" blends",best);ui();return}
+ setTimeout(tick,0)}
+function ui(){
+ $("sEval").textContent=evals.toLocaleString();$("sUniq").textContent=F.length.toLocaleString();
+ $("sBest").textContent=best?best.m.score.toFixed(1):"–";$("sBase").textContent=baseF?baseF.m.score.toFixed(1):"–";
+ if(run)$("sState").textContent="searching";
+ const top=F.slice().sort((a,b)=>b.m.score-a.m.score).slice(0,15);
+ if(baseF)top.push(baseF);
+ $("tb").innerHTML="<tr><th>Blend</th><th>Score</th><th></th><th>Hold g</th><th>Dry s</th><th>cP</th></tr>"+top.map(f=>
+  `<tr class="r ${sel&&sel.id==f.id?"sel":""}" tabindex="0" data-id="${f.id}"><td>${mixStr(f)}</td><td>${f.m.score.toFixed(1)}</td><td><div class="bar"><i style="width:${Math.min(100,f.m.score)}%"></i></div></td><td>${f.m.holdG}</td><td>${f.m.dryS}</td><td>${f.m.visc}</td></tr>`).join("");
+ if(!sel&&best)show(best)}
+const mixStr=f=>f.comps.map(x=>`${x.wt}% ${(LIB[x.id].n).split(" (")[0]}`).join(" + ").replace("Fabri-Tac","Fabri-Tac");
+function addLog(e){const d=document.createElement("div");d.textContent=`${e.time.slice(11,19)}  #${e.evals}  ${e.msg}${e.best!=null?"  best "+e.best:""}${e.mix?"  ["+e.mix+"]":""}`;const L=$("log");L.prepend(d);while(L.children.length>150)L.lastChild.remove()}
+
+// ---------- Skeleton rendering ----------
+function svg(id){
+ const sk=parseSk(LIB[id].sk);if(!sk)return`<svg viewBox="0 0 160 70"><rect x="2" y="2" width="156" height="66" rx="4" fill="none" stroke="currentColor" stroke-dasharray="4 4" opacity=".5"/><text x="80" y="38" text-anchor="middle" font-size="11" fill="currentColor">structure not published</text></svg>`;
+ const U=34,pad=24,xs=sk.atoms.map(a=>a[1]),ys=sk.atoms.map(a=>a[2]),x0=Math.min(...xs),y0=Math.min(...ys);
+ const W=(Math.max(...xs)-x0)*U+pad*2,H=(Math.max(...ys)-y0)*U+pad*2;
+ const P=a=>[(a[1]-x0)*U+pad,(Math.max(...ys)-a[2])*U+pad];
+ let o="";
+ for(const[a,b,ord]of sk.bonds){const p=P(sk.atoms[a]),q=P(sk.atoms[b]),dx=q[0]-p[0],dy=q[1]-p[1],L=Math.hypot(dx,dy),nx=-dy/L*3.5,ny=dx/L*3.5;
+  const offs=ord==1?[0]:ord==2?[-.5,.5]:[-1,0,1];
+  for(const k of offs)o+=`<line x1="${p[0]+nx*k*2}" y1="${p[1]+ny*k*2}" x2="${q[0]+nx*k*2}" y2="${q[1]+ny*k*2}" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>`}
+ for(const a of sk.atoms)if(a[0]!="C"){const p=P(a);o+=`<circle cx="${p[0]}" cy="${p[1]}" r="9" fill="var(--bg)"/><text x="${p[0]}" y="${p[1]+4.5}" text-anchor="middle" font-size="13" font-weight="700" fill="${a[0]=="O"?"var(--hot)":"var(--acc)"}">${a[0]}</text>`}
+ return`<svg viewBox="0 0 ${W} ${H}" width="${W}">${o}</svg>`}
+function show(f){sel=f;$("vt").textContent=f.id+" · score "+f.m.score.toFixed(1);
+ $("viewer").innerHTML=f.comps.map(x=>`<div class="mol">${svg(x.id)}<b>${x.wt}% ${LIB[x.id].n.split(" (")[0]}</b>${LIB[x.id].f}</div>`).join('<span class="plus">+</span>');
+ $("vf").textContent=`Est. hold ${f.m.holdG} g on a 1 mm strand · dries in ~${f.m.dryS} s · ${f.m.visc} cP · hazard load ${f.m.haz}`}
+$("tb").addEventListener("click",e=>{const r=e.target.closest("tr.r");if(!r)return;const f=F.find(x=>x.id==r.dataset.id)||baseF;if(f){show(f);ui()}});
+
+// ---------- Files ----------
+function files(){
+ const top=F.slice().sort((a,b)=>b.m.score-a.m.score).slice(0,1500);if(baseF)top.push(baseF);
+ const sk={},fm={};top.forEach(f=>{fm[f.id]=f.comps.map(x=>[x.id,x.wt]);f.comps.forEach(x=>{if(!sk[x.id]){const p=parseSk(LIB[x.id].sk);sk[x.id]={name:LIB[x.id].n,formula:LIB[x.id].f,atoms:p?p.atoms:null,bonds:p?p.bonds:null}}})});
+ return{
+ "formulas.json":{schema:1,generated:new Date().toISOString(),target_hold_g:target,evaluated:evals,counter,best:best&&best.id,baseline:baseF,formulas:top},
+ "log.json":{schema:1,entries:LOG},
+ "skeletons.json":{schema:1,note:"atoms=[element,x,y] in bond-length units, bonds=[a,b,order]. formulas maps formula id to [componentId, wt%].",components:sk,formulas:fm}}}
+function dl(name){const b=new Blob([JSON.stringify(files()[name],null,1)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
+$("d1").onclick=()=>dl("formulas.json");$("d2").onclick=()=>dl("log.json");$("d3").onclick=()=>dl("skeletons.json");
+function load(name,j){
+ if(name=="formulas.json"&&j.formulas){F=j.formulas.filter(f=>f.id!="BASE");seen=new Set(F.map(f=>key(f.comps)));evals=j.evaluated||F.length;counter=j.counter||F.length;
+  best=F.slice().sort((a,b)=>b.m.score-a.m.score)[0]||null;lastGain=evals;if(j.target_hold_g){target=j.target_hold_g;$("tgt").value=target}}
+ if(name=="log.json"&&j.entries){LOG=j.entries;$("log").innerHTML="";LOG.slice(-60).forEach(addLog)}}
+$("ld").onchange=async e=>{for(const f of e.target.files){try{load(f.name,JSON.parse(await f.text()))}catch(x){alert(f.name+": not valid JSON")}}rebase();sel=null;ui()};
+async function auto(){for(const n of["formulas.json","log.json"]){try{const r=await fetch("data/"+n,{cache:"no-store"});if(r.ok)load(n,await r.json())}catch(e){}}}
+function rebase(){baseF={id:"BASE",gen:"baseline",comps:norm([{id:"acetone",wt:67},{id:"fabri",wt:33}]),m:evaluate(norm([{id:"acetone",wt:67},{id:"fabri",wt:33}]))}}
+
+// ---------- Controls ----------
+$("go").onclick=()=>{if(run){run=false;$("go").textContent="Resume search";$("sState").textContent="paused";return}
+ target=+$("tgt").value||200;F.forEach(f=>f.m=evaluate(f.comps)||f.m);rebase();
+ best=F.slice().sort((a,b)=>b.m.score-a.m.score)[0]||null;lastGain=evals;run=true;$("go").textContent="Pause";logE("search started");tick()};
+$("reset").onclick=()=>{run=false;F=[];seen=new Set();LOG=[];evals=0;counter=0;best=null;sel=null;lastGain=0;$("log").innerHTML="";$("go").textContent="Start search";$("viewer").innerHTML="";$("sState").textContent="idle";rebase();ui()};
+$("tgt").onchange=()=>{target=+$("tgt").value||200;F.forEach(f=>f.m=evaluate(f.comps)||f.m);rebase();best=F.slice().sort((a,b)=>b.m.score-a.m.score)[0]||null;ui()};
+rebase();auto().then(()=>{rebase();ui();if(baseF)show(baseF)});
+</script>
+</body>
+</html>
